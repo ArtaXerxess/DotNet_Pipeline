@@ -11,14 +11,16 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
 
-    container:
-      image: mcr.microsoft.com/dotnet/sdk:9.0
-
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: "1"
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "1"
 
     steps:
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.100-preview.5' # update to match your actual version
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -32,9 +34,6 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
 
-    container:
-      image: mcr.microsoft.com/dotnet/sdk:9.0
-
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: "1"
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "1"
@@ -42,6 +41,11 @@ jobs:
     needs: build
 
     steps:
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.100-preview.5' # update to match your actual version
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -49,7 +53,61 @@ jobs:
         run: dotnet restore dotnet_pipeline.sln
 
       - name: Run tests
-        run: dotnet test dotnet_pipeline.sln --no-build --configuration Release --verbosity normal
+        run: dotnet test DotNet_Pipeline.Tests/DotNet_Pipeline.Tests.csproj --no-build --configuration Release --logger:"console;verbosity=normal"
+
+
+# name: .NET Build and Test
+
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+
+# jobs:
+#   build:
+#     name: Build
+#     runs-on: ubuntu-latest
+
+#     container:
+#       image: mcr.microsoft.com/dotnet/sdk:9.0
+
+#     env:
+#       DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+#       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "1"
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Restore dependencies
+#         run: dotnet restore dotnet_pipeline.sln
+
+#       - name: Build solution
+#         run: dotnet build dotnet_pipeline.sln --no-restore --configuration Release
+
+#   test:
+#     name: Test
+#     runs-on: ubuntu-latest
+
+#     container:
+#       image: mcr.microsoft.com/dotnet/sdk:9.0
+
+#     env:
+#       DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+#       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "1"
+
+#     needs: build
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Restore dependencies
+#         run: dotnet restore dotnet_pipeline.sln
+
+#       - name: Run tests
+#         run: dotnet test dotnet_pipeline.sln --no-build --configuration Release --verbosity normal
 
 
 
