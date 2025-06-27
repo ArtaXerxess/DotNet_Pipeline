@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DotNet_Pipeline\DotNet_Pipeline.csproj" />
   </ItemGroup>
 
