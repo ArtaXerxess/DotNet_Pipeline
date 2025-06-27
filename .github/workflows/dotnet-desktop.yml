@@ -53,7 +53,8 @@ jobs:
         run: dotnet restore dotnet_pipeline.sln
 
       - name: Run tests
-        run: dotnet test DotNet_Pipeline.Tests/DotNet_Pipeline.Tests.csproj --no-build --configuration Release --logger:"console;verbosity=normal"
+        run: dotnet test DotNet_Pipeline.Tests/DotNet_Pipeline.Tests.csproj --configuration Release --logger:"console;verbosity=normal"
+
 
 
 
