@@ -73,7 +73,7 @@ public class Simple_Linked_List
         var traverser = this.RootNode;
         Console.WriteLine("***Linked List***");
         while (traverser is not null)
-        {
+        {                             
             Console.Write($"{traverser.Data} ");
             traverser = traverser.Next;
         }
