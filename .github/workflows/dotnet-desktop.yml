@@ -19,7 +19,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.100-preview.5' # update to match your actual version
+          dotnet-version: '8.0.x'  # Use latest patch version of .NET 8
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -44,7 +44,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.100-preview.5' # update to match your actual version
+          dotnet-version: '8.0.x'
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -54,6 +54,7 @@ jobs:
 
       - name: Run tests
         run: dotnet test DotNet_Pipeline.Tests/DotNet_Pipeline.Tests.csproj --no-build --configuration Release --logger:"console;verbosity=normal"
+
 
 
 # name: .NET Build and Test
